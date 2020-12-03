@@ -52,7 +52,7 @@ public final class StoreFile implements MailStore {
     }
 
     @Override
-    public void getEmail(User user) { //COM RETORNA ELS MISSATGES AL USUARI?
+    public void getEmail(User user) { //COM RETORNA ELS MISSATGES AL USUARI?------------------------------------------------------------
 		try {
 			BufferedReader f = new BufferedReader(new FileReader(NOM_FITXER));
             int cont=0;
