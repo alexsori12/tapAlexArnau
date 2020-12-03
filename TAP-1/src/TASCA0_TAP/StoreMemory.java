@@ -1,16 +1,25 @@
 package TASCA0_TAP;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class StoreMemory implements MailStore {
+	
+	private static StoreMemory instance = null;
 
-    private static ArrayList<UserList> UserList=null;
+    public ArrayList<UserList> UserList=null;
 
-    public static List<TASCA0_TAP.UserList> StoreFile() {
-        if(UserList == null) UserList = new ArrayList<UserList>();
-        return UserList;
+    private StoreMemory() {
+        UserList = new ArrayList<UserList>();
     }
+
+    public static StoreMemory getInstanceM() {
+        if (instance == null) {
+            instance = new StoreMemory();
+        }
+        return instance;
+    }
+    
 
     @Override
     public void sendEmail(User receiver, Message text) {

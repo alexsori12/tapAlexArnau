@@ -1,34 +1,79 @@
 package TASCA0_TAP;
 import java.io.*;
 import java.util.*;
-import java.math.*;
+
+
+
 
 public final class StoreFile implements MailStore {
 
+	
+    private static final String NOM_FITXER = "Missatges.txt";
+  
+    private static StoreFile instance = null;
 
-    @Override
+
+    private StoreFile() {
+        
+    }
+
+    public static StoreFile getInstance() {
+        if (instance == null) {
+            instance = new StoreFile();
+        }
+        return instance;
+    }
+
+
+	@Override
     public void sendEmail(User receiver, Message text) {
 
+        try {
+
+            File file = new File(NOM_FITXER);
+            
+             // Si el archivo no existe, se crea!
+            if (!file.exists()) {
+               file.createNewFile();
+            }
+			BufferedWriter f= new BufferedWriter(new FileWriter(file.getAbsoluteFile(),true));
+		
+			String missatge= text.getReceiver()+";"+text.getSender()+";"+text.getText()+";"+text.getDate();
+			f.write(missatge);
+			f.newLine();
+			
+			f.close();
+		
+		}catch(FileNotFoundException e) {
+			System.out.println("No s'ha trobat l'arxiu amb el nom Clients.txt");
+		}catch(IOException e) {
+			System.out.println(" Error amb el fitxer Clients al guardar");
+		}
     }
 
     @Override
-    public void getEmail(User user) {
+    public void getEmail(User user) { //COM RETORNA ELS MISSATGES AL USUARI?
 		try {
-			BufferedReader f = new BufferedReader(new FileReader("Missatges.txt"));
+			BufferedReader f = new BufferedReader(new FileReader(NOM_FITXER));
             int cont=0;
-            String receiver, sender,text;
+            String receiver, sender, text;
 			String frase = f.readLine();
 			
 			while(frase != null) {
 				cont++;
 				try {
 					
-					StringTokenizer st = new StringTokenizer(frase,";");
+                    StringTokenizer st = new StringTokenizer(frase,";");
                     receiver = st.nextToken();
-                    sender = st.nextToken();
-                    text = st.nextToken();
-                    Missatges aux = new Missatges(sender,receiver,text,Integer.parseInt(st.nextToken()));
-                    
+                  
+                    if(receiver.equals(user.getUsername())){
+
+                        sender = st.nextToken();
+                        text = st.nextToken();
+                        Message aux = new Message(sender,receiver,text,Integer.parseInt(st.nextToken()));
+                        System.out.println(" lol "+sender+ " "+text+" ");
+                    }
+
                     frase = f.readLine();
 
 				}catch(IllegalArgumentException e) {
@@ -36,7 +81,6 @@ public final class StoreFile implements MailStore {
 				}
 				
 			}
-			
 			f.close();
 		}catch(FileNotFoundException e) {
 			System.out.println("No es ha trobat l'arxiu amb el nom Missatges.txt");
@@ -44,5 +88,8 @@ public final class StoreFile implements MailStore {
 			System.out.println("ERROR AL OBRIR EL FITXER");
 		}
 	}
+    
+    
+    
 
 }

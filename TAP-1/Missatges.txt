@@ -1,0 +1,14 @@
+juan;pepe;hola papa;1
+juan;pepe;hola papa;1
+juan;pepe;hola papa;1
+juan;pepe;hola papa;1
+federico;pepe;hola torrija;1
+federico;pepe;hola torrija;1
+juan;pepe;hola papa;1
+juan;pepe;hola papa;1
+juan;pepe;hola papa;1
+juan;pepe;hola papa;1
+juan;pepe;hola papa;1
+juan;pepe;hola papa;1
+juan;pepe;hola papa;1
+federico;pepe;hola torrija;1

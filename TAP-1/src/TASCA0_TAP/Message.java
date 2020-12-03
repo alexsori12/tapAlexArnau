@@ -1,12 +1,12 @@
 package TASCA0_TAP;
 
-import java.util.Date;
+
 
 public class Message {
     private String text;
     private String sender; /* punter ? */
     private String receiver; /* punter ? */
-    private int data; /* static incrementanse?*/
+    private int date; /* static incrementanse?*/
 
   
 
