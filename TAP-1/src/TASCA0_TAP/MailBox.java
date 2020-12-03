@@ -27,7 +27,7 @@ public class MailBox {
         this.messageList = messageList;
     }
 
-    public void updateMail() {
+    public void updateMail(MailStore mailstore) {
 
     }
 
