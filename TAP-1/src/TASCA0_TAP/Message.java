@@ -6,10 +6,12 @@ public class Message {
     private String text;
     private User sender; /* punter ? */
     private User receiver; /* punter ? */
-    private Date date;
+    private Date date; /* static incrementanse?*/
     private String subject;
 
-    /**
+  
+
+	/**
      *  Metode CONSTRUCTOR
      * @param sender -- Usuario que lo envia
      * @param receiver  -- Usuario que lo recibe
@@ -24,6 +26,14 @@ public class Message {
        this.subject = subject;
        this.date = date;
    }
+   
+   public String getSubject() {
+ 		return subject;
+ 	}
+
+ 	public void setSubject(String subject) {
+ 		this.subject = subject;
+ 	}
 
     public String getText() {
         return text;
