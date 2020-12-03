@@ -4,10 +4,9 @@ import java.util.Date;
 
 public class Message {
     private String text;
-    private User sender; /* punter ? */
-    private User receiver; /* punter ? */
-    private Date date; /* static incrementanse?*/
-    private String subject;
+    private String sender; /* punter ? */
+    private String receiver; /* punter ? */
+    private int data; /* static incrementanse?*/
 
   
 
@@ -16,24 +15,14 @@ public class Message {
      * @param sender -- Usuario que lo envia
      * @param receiver  -- Usuario que lo recibe
      * @param text -- Contingut del missatge
-     * @param subject -- Tema de la conversació
      * @param date -- data del missatge
      */
-   public Message(User sender, User receiver, String text,String subject, Date date){
+   public Message(String sender, String receiver, String text, int date){
        this.sender = sender;
        this.receiver = receiver;
        this.text = text;
-       this.subject = subject;
        this.date = date;
    }
-   
-   public String getSubject() {
- 		return subject;
- 	}
-
- 	public void setSubject(String subject) {
- 		this.subject = subject;
- 	}
 
     public String getText() {
         return text;
@@ -43,27 +32,27 @@ public class Message {
         this.text = text;
     }
 
-    public User getSender() {
+    public String getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
+    public void setSender(String sender) {
         this.sender = sender;
     }
 
-    public User getReceiver() {
+    public String getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(User receiver) {
+    public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
 
-    public Date getDate() {
+    public int getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(int date) {
         this.date = date;
     }
 }
