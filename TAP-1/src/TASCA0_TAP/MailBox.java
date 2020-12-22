@@ -1,6 +1,7 @@
 package TASCA0_TAP;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class MailBox {
     private User user;

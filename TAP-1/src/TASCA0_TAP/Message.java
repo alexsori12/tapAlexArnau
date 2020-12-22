@@ -1,6 +1,7 @@
 package TASCA0_TAP;
 
 
+import java.util.regex.Pattern;
 
 public class Message {
     private String text;
@@ -54,5 +55,10 @@ public class Message {
 
     public void setDate(int date) {
         this.date = date;
+    }
+
+    public int getNumberOfWords(){
+        String[] words = text.split(Pattern.quote(" "));
+        return words.length;
     }
 }
