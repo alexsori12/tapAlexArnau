@@ -8,7 +8,7 @@ public class Message {
     private String sender; /* punter ? */
     private String receiver; /* punter ? */
     private int date; /* static incrementanse?*/
-
+    private String subject;
   
 
 	/**
@@ -17,15 +17,25 @@ public class Message {
      * @param receiver  -- Usuario que lo recibe
      * @param text -- Contingut del missatge
      * @param date -- data del missatge
+     * @param subject -- motiu del missatge
      */
-   public Message(String sender, String receiver, String text, int date){
+   public Message(String sender, String receiver, String text, int date, String subject){
        this.sender = sender;
        this.receiver = receiver;
        this.text = text;
        this.date = date;
+       this.subject = subject;
    }
 
-    public String getText() {
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getText() {
         return text;
     }
 
@@ -61,4 +71,9 @@ public class Message {
         String[] words = text.split(Pattern.quote(" "));
         return words.length;
     }
+    
+    @Override
+	public String toString() {
+		return "Message: Date ["+date+"] Subject ("+subject+ ") : "+ text+"| From: " + sender + " to: " + receiver;
+	}
 }

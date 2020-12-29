@@ -1,16 +1,17 @@
 package TASCA0_TAP;
 
-import java.util.ArrayList;
+import java.util.*;
 
 
 public class StoreMemory implements MailStore {
 	
 	private static StoreMemory instance = null;
 
-    public ArrayList<UserList> UserList=null;
+	private Hashtable<String, ArrayList<Message> > hash; 
+   
 
     private StoreMemory() {
-        UserList = new ArrayList<UserList>();
+        hash = new Hashtable<String, ArrayList<Message>>();
     }
 
     public static StoreMemory getInstanceM() {
@@ -23,17 +24,14 @@ public class StoreMemory implements MailStore {
 
     @Override
     public void sendEmail(User receiver, Message text) {
-        boolean trobat=false;
-        for(int i=0; i < UserList.size() && !trobat;i++) {
-            if(UserList.get(i).getUser().equals(receiver)){
-                UserList.get(i).getMessageList().add(text);
-                trobat = true;
-            }
-        }
+    	if( hash.get(receiver.getUsername()) != null) {
+    		hash.put(receiver.getUsername(), new ArrayList<Message>());
+    	}
+    		hash.get(receiver.getUsername()).add(text);
     }
 
     @Override
-    public void getEmail(User user) {
-
+    public ArrayList<Message> getEmail(User user) {
+    	return hash.get(user.getUsername());
     }
 }

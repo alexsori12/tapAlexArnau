@@ -38,7 +38,7 @@ public final class StoreFile implements MailStore {
             }
 			BufferedWriter f= new BufferedWriter(new FileWriter(file.getAbsoluteFile(),true));
 		
-			String missatge= text.getReceiver()+";"+text.getSender()+";"+text.getText()+";"+text.getDate();
+			String missatge= text.getReceiver()+";"+text.getSender()+";"+text.getText()+";"+text.getSubject() +";"+text.getDate();
 			f.write(missatge);
 			f.newLine();
 			
@@ -52,11 +52,12 @@ public final class StoreFile implements MailStore {
     }
 
     @Override
-    public void getEmail(User user) { //COM RETORNA ELS MISSATGES AL USUARI?------------------------------------------------------------
+    public ArrayList<Message> getEmail(User user) { 
+    	ArrayList<Message> messageList = new ArrayList<Message>(); 
 		try {
 			BufferedReader f = new BufferedReader(new FileReader(NOM_FITXER));
             int cont=0;
-            String receiver, sender, text;
+            String receiver, sender, text, subject;
 			String frase = f.readLine();
 			
 			while(frase != null) {
@@ -70,7 +71,8 @@ public final class StoreFile implements MailStore {
 
                         sender = st.nextToken();
                         text = st.nextToken();
-                        Message aux = new Message(sender,receiver,text,Integer.parseInt(st.nextToken()));
+                        subject = st.nextToken();
+                        messageList.add(new Message(sender,receiver,text,Integer.parseInt(st.nextToken()),subject));
                         System.out.println(" lol "+sender+ " "+text+" ");
                     }
 
@@ -82,11 +84,14 @@ public final class StoreFile implements MailStore {
 				
 			}
 			f.close();
+			return messageList;
 		}catch(FileNotFoundException e) {
 			System.out.println("No es ha trobat l'arxiu amb el nom Missatges.txt");
 		}catch(IOException e) {
 			System.out.println("ERROR AL OBRIR EL FITXER");
 		}
+		
+		return null;
 	}
     
     

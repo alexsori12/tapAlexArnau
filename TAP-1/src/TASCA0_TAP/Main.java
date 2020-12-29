@@ -6,13 +6,13 @@ public class Main {
 	// write your code here
         //SALE UN DECORATOR EN ESTA PRACTICA y UN OBSERVER
     	
-    	User pedro = new User("federico","fede",1);
+    	User pedro = new User("nouUSUARI","fede",5);
     	
     	StoreFile mail = StoreFile.getInstance();
     	
-    	Message text = new Message("pepe","juan","hola papa",1);
+    	Message text = new Message("pepe","juan","hola papa",1, "SUBJECT");
     	
-    	//mail.sendEmail(pedro, text);
+    	mail.sendEmail(pedro, text);
     	mail.getEmail(pedro);
 
     	
