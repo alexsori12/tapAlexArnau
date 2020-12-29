@@ -1,15 +1,23 @@
 package TASCA0_TAP;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
+
+
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 
 public class MailBox {
     private User user;
     private ArrayList<Message> messageList;
+    private MailStore mailStore= null;
 
-    public MailBox(User user) {
+    
+    public MailBox(User user, MailStore mail) {
         this.user = user;
         this.messageList = null;
+        this.mailStore = mail;
     }
 
     public User getUser() {
@@ -30,7 +38,7 @@ public class MailBox {
     
     public ArrayList<Message> cloneArray(ArrayList<Message> llista){
 	    ArrayList<Message> clone = new ArrayList<Message>(llista.size());
-	    for (Message item : llista) clone.add(new Message(item.getSender(), item.getReceiver(), item.getText(), item.getDate(), item.getSubject()));
+	    for (Message item : llista) clone.add(new Message(item.getSender(), item.getReceiver(), item.getText(), item.getDate().toString(), item.getSubject()));
 	    return clone;
     }
 
@@ -43,21 +51,24 @@ public class MailBox {
     	if(messageList == null) System.out.println("\n    Update your mailbox, and try again ");
     	else {
     		System.out.println("\n Mailbox of: "+user.getUsername());
-    		for (Message item : messageList) {
-    			System.out.println(item.toString());
-    		}
+    		messageList.forEach( Message -> Message.toString());
+//    		for (Message item : messageList) {
+//    			System.out.println(item.toString());
+//    		}
     	}
     }
 
-    public void sendEmail(){
+    public void sendEmail(String usernameDestination, String subject, String text){
+    	mailStore.sendEmail(new Message(user.getUsername(), usernameDestination, text, subject));
     }
 
-    public void getSortedMail(){
+    public List<Message> getSortedMail(Comparator<Message> m){
+    	return messageList.stream().sorted(m).collect(Collectors.toList());
 
     }
 
-    public void filterMailBy(){
-
+    public List<Message> filterMailBy(Predicate<Message> c){
+		return messageList.stream().filter(c).collect(Collectors.toList());
     }
     
     

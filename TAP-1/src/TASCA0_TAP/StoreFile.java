@@ -26,7 +26,7 @@ public final class StoreFile implements MailStore {
 
 
 	@Override
-    public void sendEmail(User receiver, Message text) {
+    public void sendEmail( Message text) {
 
         try {
 
@@ -72,7 +72,7 @@ public final class StoreFile implements MailStore {
                         sender = st.nextToken();
                         text = st.nextToken();
                         subject = st.nextToken();
-                        messageList.add(new Message(sender,receiver,text,Integer.parseInt(st.nextToken()),subject));
+                        messageList.add(new Message(sender,receiver,text,st.nextToken(),subject));
                         System.out.println(" lol "+sender+ " "+text+" ");
                     }
 

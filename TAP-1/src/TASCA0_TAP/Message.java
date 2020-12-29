@@ -1,29 +1,47 @@
 package TASCA0_TAP;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 public class Message {
     private String text;
-    private String sender; /* punter ? */
-    private String receiver; /* punter ? */
-    private int date; /* static incrementanse?*/
+    private String sender;
+    private String receiver; 
+    private LocalDateTime date;
     private String subject;
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
   
 
 	/**
-     *  Metode CONSTRUCTOR
+     *  Metode CONSTRUCTOR quan es crea un now missatge
      * @param sender -- Usuario que lo envia
      * @param receiver  -- Usuario que lo recibe
      * @param text -- Contingut del missatge
-     * @param date -- data del missatge
      * @param subject -- motiu del missatge
      */
-   public Message(String sender, String receiver, String text, int date, String subject){
+   public Message(String sender, String receiver, String text, String subject){
        this.sender = sender;
        this.receiver = receiver;
        this.text = text;
-       this.date = date;
+       this.date =  LocalDateTime.now();
+       this.subject = subject;
+   }
+   
+   /**
+    *  Metode CONSTRUCTOR
+    * @param sender -- Usuario que lo envia
+    * @param receiver  -- Usuario que lo recibe
+    * @param text -- Contingut del missatge
+    * @param date -- data del missatge
+    * @param subject -- motiu del missatge
+    */
+   public Message(String sender, String receiver, String text, String date, String subject){
+       this.sender = sender;
+       this.receiver = receiver;
+       this.text = text;
+       this.date = LocalDateTime.parse(date, formatter);
        this.subject = subject;
    }
 
@@ -59,15 +77,15 @@ public class Message {
         this.receiver = receiver;
     }
 
-    public int getDate() {
-        return date;
-    }
+    public LocalDateTime getDate() {
+		return date;
+	}
 
-    public void setDate(int date) {
-        this.date = date;
-    }
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
 
-    public int getNumberOfWords(){
+	public int getNumberOfWords(){
         String[] words = text.split(Pattern.quote(" "));
         return words.length;
     }

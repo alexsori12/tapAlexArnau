@@ -10,9 +10,9 @@ public class Main {
     	
     	StoreFile mail = StoreFile.getInstance();
     	
-    	Message text = new Message("pepe","juan","hola papa",1, "SUBJECT");
+    	Message text = new Message("pepe","juan","hola papa", "SUBJECT");
     	
-    	mail.sendEmail(pedro, text);
+    	mail.sendEmail( text);
     	mail.getEmail(pedro);
 
     	

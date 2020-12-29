@@ -5,11 +5,14 @@ import java.util.ArrayList;
 
 public class MailSystem {
 
+	private MailStore mail;
     private static final ArrayList<MailBox> Usermailbox = new ArrayList<>();
+    
+    public MailSystem(MailStore mail){
+    	this.mail = mail;
+    }
 
-    public MailSystem(){}
-
-    public void addUser(User user){Usermailbox.add(new MailBox(user));}
+    public void addUser(User user){Usermailbox.add(new MailBox(user, mail));}
 
     public ArrayList<Message> getAllMissages(){
         ArrayList<Message> returned= new ArrayList<Message>();

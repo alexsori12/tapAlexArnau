@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface MailStore {
 	
-    public void sendEmail(User receiver, Message text);	
+    public void sendEmail(Message text);	
     
     public ArrayList<Message> getEmail(User user);
 }
