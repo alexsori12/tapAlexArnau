@@ -40,6 +40,15 @@ public class User {
     public void setYear(int year) {
         this.year = year;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", year=" + year +
+                '}';
+    }
 }
 
 

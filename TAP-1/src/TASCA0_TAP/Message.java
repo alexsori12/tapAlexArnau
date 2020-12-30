@@ -11,7 +11,7 @@ public class Message {
     private String receiver; 
     private LocalDateTime date;
     private String subject;
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
   
 
 	/**
@@ -37,11 +37,11 @@ public class Message {
     * @param date -- data del missatge
     * @param subject -- motiu del missatge
     */
-   public Message(String sender, String receiver, String text, String date, String subject){
+   public Message(String sender, String receiver, String text, LocalDateTime date, String subject){
        this.sender = sender;
        this.receiver = receiver;
        this.text = text;
-       this.date = LocalDateTime.parse(date, formatter);
+       this.date = date;
        this.subject = subject;
    }
 
@@ -85,13 +85,17 @@ public class Message {
 		this.date = date;
 	}
 
-	public int getNumberOfWords(){
+    public static DateTimeFormatter getFormatter() {
+        return formatter;
+    }
+
+    public int getNumberOfWords(){
         String[] words = text.split(Pattern.quote(" "));
         return words.length;
     }
     
     @Override
 	public String toString() {
-		return "Message: Date ["+date+"] Subject ("+subject+ ") : "+ text+"| From: " + sender + " to: " + receiver;
+		return "Message: Date ["+date.format(formatter)+"] Subject ("+subject+ ") : "+ text+" | \t\t\t From: " + sender + " to: " + receiver;
 	}
 }

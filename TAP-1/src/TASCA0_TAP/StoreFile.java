@@ -1,5 +1,7 @@
 package TASCA0_TAP;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -12,12 +14,11 @@ public final class StoreFile implements MailStore {
   
     private static StoreFile instance = null;
 
-
     private StoreFile() {
         
     }
 
-    public static StoreFile getInstance() {
+    public static StoreFile getInstanceF() {
         if (instance == null) {
             instance = new StoreFile();
         }
@@ -72,7 +73,7 @@ public final class StoreFile implements MailStore {
                         sender = st.nextToken();
                         text = st.nextToken();
                         subject = st.nextToken();
-                        messageList.add(new Message(sender,receiver,text,st.nextToken(),subject));
+                        messageList.add(new Message(sender,receiver,text, LocalDateTime.parse(st.nextToken(),Message.getFormatter() ),subject));
                         System.out.println(" lol "+sender+ " "+text+" ");
                     }
 

@@ -24,10 +24,10 @@ public class StoreMemory implements MailStore {
 
     @Override
     public void sendEmail( Message text) {
-    	if( hash.get(text.getReceiver()) != null) {
+    	if( hash.get(text.getReceiver()) == null) {
     		hash.put(text.getReceiver(), new ArrayList<Message>());
     	}
-    		hash.get(text.getReceiver()).add(text);
+    	hash.get(text.getReceiver()).add(text);
     }
 
     @Override

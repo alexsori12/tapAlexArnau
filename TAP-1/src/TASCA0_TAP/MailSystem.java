@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class MailSystem {
 
 	private MailStore mail;
-    private static final ArrayList<MailBox> Usermailbox = new ArrayList<MailBox>();
+    private ArrayList<MailBox> Usermailbox = new ArrayList<MailBox>();
     
     public MailSystem(MailStore mail){
     	this.mail = mail;
@@ -21,12 +21,26 @@ public class MailSystem {
     	return aux;
     }
 
-    public ArrayList<Message> getAllMissages(){
-        return (ArrayList<Message>) Usermailbox.stream()
+	public MailStore getMail() {
+		return mail;
+	}
+
+	public void setMail(MailStore mail) {
+		this.mail = mail;
+	}
+
+	public ArrayList<MailBox> getUserMailBox() {
+		return Usermailbox;
+	}
+
+	public ArrayList<Message> getAllMissages(){
+	 	return ( ArrayList<Message>) Usermailbox.stream()
         								.map(MailBox::getMessageList)
         								.flatMap(Collection::stream)
         								.collect(Collectors.toList());
-    }
+
+
+	}
 
     public ArrayList<User> getAllUsers(){
     	return (ArrayList<User>) Usermailbox.stream()

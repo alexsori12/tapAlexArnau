@@ -8,7 +8,7 @@ public class Main {
     	
     	User pedro = new User("nouUSUARI","fede",5);
     	
-    	StoreFile mail = StoreFile.getInstance();
+    	StoreMemory mail = StoreMemory.getInstanceM();
     	
     	Message text = new Message("pepe","juan","hola papa", "SUBJECT");
     	

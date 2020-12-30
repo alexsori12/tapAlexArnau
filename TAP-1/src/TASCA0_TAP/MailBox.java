@@ -3,6 +3,8 @@ package TASCA0_TAP;
 
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -16,7 +18,7 @@ public class MailBox {
     
     public MailBox(User user, MailStore mail) {
         this.user = user;
-        this.messageList = null;
+        this.messageList = new ArrayList<Message>();
         this.mailStore = mail;
     }
 
@@ -38,24 +40,22 @@ public class MailBox {
     
     public ArrayList<Message> cloneArray(ArrayList<Message> llista){
 	    ArrayList<Message> clone = new ArrayList<Message>(llista.size());
-	    for (Message item : llista) clone.add(new Message(item.getSender(), item.getReceiver(), item.getText(), item.getDate().toString(), item.getSubject()));
+	    for (Message item : llista) clone.add(new Message(item.getSender(), item.getReceiver(), item.getText(), item.getDate(), item.getSubject()));
 	    return clone;
     }
 
-    public void updateMail(MailStore mailstore) { 
-    	this.messageList = cloneArray(mailstore.getEmail(user));
+    public void updateMail() {
+    	this.messageList = cloneArray(mailStore.getEmail(user));
 
     }
 
-    public void listMail() {
-    	if(messageList == null) System.out.println("\n    Update your mailbox, and try again ");
-    	else {
+    public ArrayList<Message> listMail() {
+    	if(messageList.isEmpty())
+    	    System.out.println("\n    Update your mailbox, and try again ");
+    	else
     		System.out.println("\n Mailbox of: "+user.getUsername());
-    		messageList.forEach( Message -> Message.toString());
-//    		for (Message item : messageList) {
-//    			System.out.println(item.toString());
-//    		}
-    	}
+
+        return messageList;
     }
 
     public void sendEmail(String usernameDestination, String subject, String text){
