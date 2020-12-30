@@ -38,8 +38,6 @@ public class MailSystem {
         								.map(MailBox::getMessageList)
         								.flatMap(Collection::stream)
         								.collect(Collectors.toList());
-
-
 	}
 
     public ArrayList<User> getAllUsers(){
@@ -75,7 +73,7 @@ public class MailSystem {
     	 return (ArrayList<Message>) Usermailbox.stream()
 					.map(MailBox::getMessageList)
 					.flatMap(Collection::stream)
-					.filter(Message -> Message.getSubject().equals(subject))
+					.filter(Message -> Message.getSubject().contains(subject))
 					.collect(Collectors.toList()); 	
     }
 

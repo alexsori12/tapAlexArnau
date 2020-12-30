@@ -12,13 +12,12 @@ import java.util.stream.Collectors;
 
 public class MailBox {
     private User user;
-    private ArrayList<Message> messageList;
+    private ArrayList<Message> messageList = new ArrayList<Message>();
     private MailStore mailStore= null;
 
     
     public MailBox(User user, MailStore mail) {
         this.user = user;
-        this.messageList = new ArrayList<Message>();
         this.mailStore = mail;
     }
 
@@ -39,7 +38,8 @@ public class MailBox {
     }
     
     public ArrayList<Message> cloneArray(ArrayList<Message> llista){
-	    ArrayList<Message> clone = new ArrayList<Message>(llista.size());
+        if(llista == null) return new ArrayList<Message>();
+	    ArrayList<Message> clone = new ArrayList<Message>();
 	    for (Message item : llista) clone.add(new Message(item.getSender(), item.getReceiver(), item.getText(), item.getDate(), item.getSubject()));
 	    return clone;
     }

@@ -27,32 +27,54 @@ public class Test {
         MailBoxArr = systemM.getUserMailBox();
         MailBoxArr.get(0).sendEmail("Zackon", "Treball TAP", "Quan començem?");
         MailBoxArr.get(1).sendEmail("repstail123", "Treball TAP", "HAHAHAHAHHA");
+        MailBoxArr.get(1).sendEmail("repstail123", "Treball TAP", "Quan vulguis titu");
         MailBoxArr.get(2).sendEmail("repstail123", "Subject2", "TEXT");
         MailBoxArr.get(3).sendEmail("repstail123", "Subject3", "TEXT");
-        MailBoxArr.get(3).sendEmail("repstail123", "Subject2", "TEXT");
+        MailBoxArr.get(3).sendEmail("repstail123", "Subject2 V2", "TEXT");
         MailBoxArr.get(4).sendEmail("repstail123", "Subject4", "TEXT");
 
         // 4. Get one of the mailboxes and update its mail.
         MailBoxArr.get(0).listMail();
         MailBoxArr.get(0).updateMail();
+        //MailBoxArr.get(1).updateMail();
         (MailBoxArr.get(0).listMail()).forEach(Message ->System.out.println(Message.toString()));
+
+       MailBoxArr.forEach(MailBox::updateMail); // Updateamos a todos para las pruebas
 
         //5. List the mailbox messages in the console. (Sorted by newer first.) Use the iterable capabilities
         //of the mailbox!
 
+        System.out.println( "\n 5. List the mailbox messages in the console. (Sorted by newer first.)-----------------------------------");
+        MailBoxArr.get(0).getSortedMail(new ComparatorSortedByNew()).forEach(Message -> System.out.println(Message.toString()));
+
         // 6. Now list the messages by sender username using the mailbox feature
+        System.out.println(" \n 6. Now list the messages by sender username using the mailbox feature -------------------------------------");
+        MailBoxArr.get(0).filterMailBy(Message -> Message.getSender().contains("Zackon")).forEach(Message -> System.out.println(Message.toString()));
 
         //7. Filter the messages with the following conditions:
+        System.out.println(" \n 7. Filter the messages with the following conditions: ------------------------------- ");
             //- The message subject contains a certain word.
+        System.out.println("     - The message subject contains a certain word. ");
+        systemM.groupMessageSubject("Subject2").forEach(Message -> System.out.println("     "+Message.toString()));
             //- The message sender is a certain user.
+        System.out.println("     - The message sender is a certain user. ");
+        systemM.filterMessage(Message -> Message.getSender().contains("Zackon")).forEach(Message -> System.out.println("     "+Message.toString()));
+
         //8. Use the mail system object to retrieve all messages and print them.
         System.out.println("\n 8. Todos los mensages de la MAILSYSTEM: -----------------------------------");
         systemM.getAllMissages().forEach(Message -> System.out.println(Message.toString()));
+
         //9. Filter messages globally that fulfill the following conditions:
+        System.out.println("\n 9. Filter messages globally that fulfill the following conditions:");
             //- The message subject is a single word.
-        //systemM.g
+        System.out.println("      - The message subject is a single word.");
+        systemM.filterMessage(Message -> Message.getSubject().equals("Subject2")).forEach(Message -> System.out.println("     "+Message.toString()));
             //- The sender was born after year 2000.
+        System.out.println("      - The sender was born after year 2000.");
+
         //10. Get the count of messages in the system and print it.
+        System.out.println("\n 10. Get the count of messages in the system and print it.-------------------------------");
+        System.out.println(" Number of Messages: "+systemM.numberOfMissages());
         //11. Get the average number of messages received per user and print it.
         //12. Group the messages per subject in a Map<String, List<Message>> and print it.
         //13. Count the words of all messages sent by users with a certain real name.
