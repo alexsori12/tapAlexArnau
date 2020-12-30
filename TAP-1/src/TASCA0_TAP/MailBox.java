@@ -62,13 +62,13 @@ public class MailBox {
     	mailStore.sendEmail(new Message(user.getUsername(), usernameDestination, text, subject));
     }
 
-    public List<Message> getSortedMail(Comparator<Message> m){
-    	return messageList.stream().sorted(m).collect(Collectors.toList());
+    public ArrayList<Message> getSortedMail(Comparator<Message> m){
+    	return (ArrayList<Message>) messageList.stream().sorted(m).collect(Collectors.toList());
 
     }
 
-    public List<Message> filterMailBy(Predicate<Message> c){
-		return messageList.stream().filter(c).collect(Collectors.toList());
+    public ArrayList<Message> filterMailBy(Predicate<Message> c){
+		return (ArrayList<Message>) messageList.stream().filter(c).collect(Collectors.toList());
     }
     
     

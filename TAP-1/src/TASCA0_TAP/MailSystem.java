@@ -1,78 +1,88 @@
 package TASCA0_TAP;
 
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class MailSystem {
 
 	private MailStore mail;
-    private static final ArrayList<MailBox> Usermailbox = new ArrayList<>();
+    private static final ArrayList<MailBox> Usermailbox = new ArrayList<MailBox>();
     
     public MailSystem(MailStore mail){
     	this.mail = mail;
     }
 
-    public void addUser(User user){Usermailbox.add(new MailBox(user, mail));}
+    public MailBox addUser(User user){
+    	MailBox aux = new MailBox(user, mail);
+    	Usermailbox.add(aux);
+    	return aux;
+    }
 
     public ArrayList<Message> getAllMissages(){
-        ArrayList<Message> returned= new ArrayList<Message>();
-        for(MailBox m: Usermailbox)
-        {
-            ArrayList<Message> allMessage = m.getMessageList();
-            returned.addAll(allMessage);
-        }
-        return returned;
+        return (ArrayList<Message>) Usermailbox.stream()
+        								.map(MailBox::getMessageList)
+        								.flatMap(Collection::stream)
+        								.collect(Collectors.toList());
     }
 
     public ArrayList<User> getAllUsers(){
-        ArrayList<User> returned = new ArrayList<User>();
-        for(MailBox m: Usermailbox) returned.add(m.getUser());
-        return returned;
+    	return (ArrayList<User>) Usermailbox.stream()
+    								.map(MailBox::getUser)
+    								.collect(Collectors.toList());
     }
 
-    public ArrayList<Message> filterMessage(){
-        ArrayList<Message> returned= new ArrayList<Message>();
-        return returned;
+    public ArrayList<Message> filterMessage(Predicate<Message> m){
+        return (ArrayList<Message>) Usermailbox.stream()
+        								.map(MailBox::getMessageList)
+        								.flatMap(Collection::stream)
+        								.filter(m)
+        								.collect(Collectors.toList()); 		
     }
 
-    public int numberOfMissages() {
-        int cont=0;
-        for (MailBox m : Usermailbox) {
-            ArrayList<Message> MList = m.getMessageList();
-            for(Message mm : MList) cont++;
-        }
-        return cont;
+    public long numberOfMissages() {
+        return	Usermailbox.stream()
+        			.map(MailBox::getMessageList)
+        			.flatMap(Collection::stream)
+        			.count();
     }
 
-    public int averageMessageUser() {
-        int allMessages = numberOfMissages();
-        ArrayList<User> users = getAllUsers();
-        int allUsers=0;
-        for(User u : users) allUsers++;
-        return (allMessages/allUsers);
+    public long averageMessageUser() {
+    	return	(Usermailbox.stream()
+    			.map(MailBox::getMessageList)
+    			.flatMap(Collection::stream)
+    			.count())/Usermailbox.size();
+        
+    }
+    
+    public ArrayList<Message> groupMessageSubject(String subject){
+    	 return (ArrayList<Message>) Usermailbox.stream()
+					.map(MailBox::getMessageList)
+					.flatMap(Collection::stream)
+					.filter(Message -> Message.getSubject().equals(subject))
+					.collect(Collectors.toList()); 	
     }
 
-    public int countWordsByUser(User user){
-        int words=0;
-        for(MailBox m : Usermailbox){
-            if(m.getUser().equals(user)){
-                for(Message mm : m.getMessageList()){
-                    words+=mm.getNumberOfWords();
-                }
-            }
-        }
-        return words;
+    public long countWordsByUser(User user){
+    	
+    	return	 Usermailbox.stream()
+				 .filter(MailBox -> (MailBox.getUser().equals(user)))
+				 .map(MailBox::getMessageList)
+				 .flatMap(Collection::stream)
+		  		 .mapToInt(Message::getNumberOfWords)
+				 .sum();
     }
 
     public ArrayList<Message> getMessagesB4Year(int year){
-        ArrayList<Message> returned= new ArrayList<Message>();
-        for(MailBox m : Usermailbox){
-            if(m.getUser().getYear() < year){
-                for(Message mm : m.getMessageList()) returned.add(mm);
-            }
-        }
-        return returned;
-    }
+
+		return (ArrayList<Message>) Usermailbox.stream()
+				.filter(MailBox -> MailBox.getUser().getYear() < year)
+				.map(MailBox::getMessageList)
+				.flatMap(Collection::stream)
+				.collect(Collectors.toList());
+	}
 
 
 
