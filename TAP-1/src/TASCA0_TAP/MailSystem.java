@@ -69,20 +69,29 @@ public class MailSystem {
         
     }
     
-    public ArrayList<Message> groupMessageSubject(String subject){
+    public ArrayList<Message> messagesbySubject(String subject){
     	 return (ArrayList<Message>) Usermailbox.stream()
 					.map(MailBox::getMessageList)
 					.flatMap(Collection::stream)
 					.filter(Message -> Message.getSubject().contains(subject))
-					.collect(Collectors.toList()); 	
+					.collect(Collectors.toList());
     }
 
-    public long countWordsByUser(User user){
-    	
-    	return	 Usermailbox.stream()
-				 .filter(MailBox -> (MailBox.getUser().equals(user)))
+	public Map<String,List<Message>> groupMessageSubject(){
+		return  getAllMissages().stream().collect(Collectors.groupingBy(Message::getSubject));
+	}
+
+    public long countWordsByUser(String name){
+		ArrayList<String> aux = (ArrayList<String>)  Usermailbox.stream()
+									.filter(MailBox -> MailBox.getUser().getName().equals(name))
+									.map(MailBox::getUser)
+									.map(User::getUsername)
+									.collect(Collectors.toList());
+
+		return Usermailbox.stream()
 				 .map(MailBox::getMessageList)
 				 .flatMap(Collection::stream)
+				 .filter(Message -> aux.contains(Message.getSender()))
 		  		 .mapToInt(Message::getNumberOfWords)
 				 .sum();
     }
@@ -97,5 +106,19 @@ public class MailSystem {
 	}
 
 
+	public ArrayList<String> usersAfterYear(int year){
+		return  (ArrayList<String>)  Usermailbox.stream()
+				.filter(MailBox -> MailBox.getUser().getYear() > year)
+				.map(MailBox::getUser)
+				.map(User::getUsername)
+				.collect(Collectors.toList());
+	}
+
+
+
 
 }
+
+
+
+

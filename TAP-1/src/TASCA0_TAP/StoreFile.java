@@ -39,7 +39,7 @@ public final class StoreFile implements MailStore {
             }
 			BufferedWriter f= new BufferedWriter(new FileWriter(file.getAbsoluteFile(),true));
 		
-			String missatge= text.getReceiver()+";"+text.getSender()+";"+text.getText()+";"+text.getSubject() +";"+text.getDate();
+			String missatge= text.getReceiver()+";"+text.getSender()+";"+text.getText()+";"+text.getDate()+";"+text.getSubject();
 			f.write(missatge);
 			f.newLine();
 			
@@ -58,8 +58,9 @@ public final class StoreFile implements MailStore {
 		try {
 			BufferedReader f = new BufferedReader(new FileReader(NOM_FITXER));
             int cont=0;
-            String receiver, sender, text, subject;
+            String receiver, sender, text;
 			String frase = f.readLine();
+			LocalDateTime data;
 			
 			while(frase != null) {
 				cont++;
@@ -72,9 +73,8 @@ public final class StoreFile implements MailStore {
 
                         sender = st.nextToken();
                         text = st.nextToken();
-                        subject = st.nextToken();
-                        messageList.add(new Message(sender,receiver,text, LocalDateTime.parse(st.nextToken(),Message.getFormatter() ),subject));
-                        System.out.println(" lol "+sender+ " "+text+" ");
+                        data= LocalDateTime.parse(st.nextToken());
+                        messageList.add(new Message(sender,receiver,text, data ,st.nextToken()));
                     }
 
                     frase = f.readLine();

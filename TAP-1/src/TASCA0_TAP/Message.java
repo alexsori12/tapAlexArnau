@@ -96,6 +96,6 @@ public class Message {
     
     @Override
 	public String toString() {
-		return "Message: Date ["+date.format(formatter)+"] Subject ("+subject+ ") : "+ text+" | \t\t\t From: " + sender + " to: " + receiver;
+		return " \t\t [Message: Date ["+date.format(formatter)+"] Subject ("+subject+ ") : "+ text+" |  From: " + sender + " to: " + receiver +"]";
 	}
 }
