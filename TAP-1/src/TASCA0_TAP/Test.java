@@ -19,7 +19,7 @@ public class Test {
 
         //1. Initialize the mail system with an in-memory mail store
         MailSystem systemM;
-        if(store == 1) systemM = new MailSystem(StoreFile.getInstanceF());
+        if(store == 1) systemM = new MailSystem(new StoreFile("Missatges.txt"));
         else systemM = new MailSystem(StoreMemory.getInstanceM());
 
 

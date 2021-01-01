@@ -1,37 +1,37 @@
 package TASCA0_TAP;
 import java.io.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
 
 
-public final class StoreFile implements MailStore {
+public class StoreFile implements MailStore {
 
-	
-    private static final String NOM_FITXER = "Missatges.txt";
-  
+
+  	private String nomFitxer;
     private static StoreFile instance = null;
 
-    private StoreFile() {
-        
+
+
+	public StoreFile(String nom) {
+    	this.nomFitxer = nom;
     }
 
-    public static StoreFile getInstanceF() {
-        if (instance == null) {
-            instance = new StoreFile();
-        }
-        return instance;
-    }
+	public String getNomFitxer() {
+		return nomFitxer;
+	}
 
+	public void setNomFitxer(String nomFitxer) {
+		this.nomFitxer = nomFitxer;
+	}
 
 	@Override
     public void sendEmail( Message text) {
 
         try {
 
-            File file = new File(NOM_FITXER);
+            File file = new File(nomFitxer);
             
              // Si el archivo no existe, se crea!
             if (!file.exists()) {
@@ -48,7 +48,7 @@ public final class StoreFile implements MailStore {
 		}catch(FileNotFoundException e) {
 			System.out.println("No s'ha trobat l'arxiu amb el nom Clients.txt");
 		}catch(IOException e) {
-			System.out.println(" Error amb el fitxer Clients al guardar");
+			System.out.println(" Error amb el fitxer"+ nomFitxer +" al guardar");
 		}
     }
 
@@ -56,7 +56,7 @@ public final class StoreFile implements MailStore {
     public ArrayList<Message> getEmail(User user) { 
     	ArrayList<Message> messageList = new ArrayList<Message>(); 
 		try {
-			BufferedReader f = new BufferedReader(new FileReader(NOM_FITXER));
+			BufferedReader f = new BufferedReader(new FileReader(nomFitxer));
             int cont=0;
             String receiver, sender, text;
 			String frase = f.readLine();
