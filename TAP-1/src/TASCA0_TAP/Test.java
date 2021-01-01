@@ -24,11 +24,11 @@ public class Test {
 
 
         // 2. Create at least 3 users, two have the same name but different username.
-        systemM.addUser(new User("repstail123", "alex", 2000));
+        systemM.addUser(new User("repstail123", "Alex", 2000));
         systemM.addUser(new User("Zackon", "Arnau", 2001));
-        systemM.addUser(new User("user3", "user", 1999));
-        systemM.addUser(new User("user4", "user", 1998));
-        systemM.addUser(new User("user5", "user", 1997));
+        systemM.addUser(new User("Torija", "Adria", 1999));
+        systemM.addUser(new User("Arubu", "Rubio", 1998));
+        systemM.addUser(new User("Tutu", "Xavier", 1997));
 
         //UsersArr = systemM.getAllUsers(); //Comprovacio users creats
         //UsersArr.forEach(System.out::println);

@@ -1,7 +1,6 @@
 package TASCA0_TAP;
 
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -73,7 +72,7 @@ public class MailSystem {
     	 return (ArrayList<Message>) Usermailbox.stream()
 					.map(MailBox::getMessageList)
 					.flatMap(Collection::stream)
-					.filter(Message -> Message.getSubject().contains(subject))
+					.filter(message -> message.getSubject().contains(subject))
 					.collect(Collectors.toList());
     }
 
