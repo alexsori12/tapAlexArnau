@@ -5,9 +5,8 @@ import java.util.*;
 public class Test {
     public static void main(String[] args) {
 
-        ArrayList<User> UsersArr;
+
         ArrayList<MailBox> MailBoxArr;
-        ArrayList<Message> MessageArr;
         ArrayList<String> UserNamesArr;
 
         Scanner myInput = new Scanner( System.in );
@@ -28,7 +27,7 @@ public class Test {
         systemM.addUser(new User("Zackon", "Arnau", 2001));
         systemM.addUser(new User("Torija", "Adria", 1999));
         systemM.addUser(new User("Arubu", "Rubio", 1998));
-        systemM.addUser(new User("Tutu", "Xavier", 1997));
+        systemM.addUser(new User("Tutu", "Arubu", 1997));
 
         //UsersArr = systemM.getAllUsers(); //Comprovacio users creats
         //UsersArr.forEach(System.out::println);
@@ -103,11 +102,11 @@ public class Test {
 
         //13. Count the words of all messages sent by users with a certain real name.
         System.out.println("\n------------------------------- 13. Count the words of all messages sent by users with a certain real name.------------------------------- \n");
-        System.out.println(" Number of words certain real name : "+systemM.countWordsByUser("Arnau"));
+        System.out.println(" Number of words certain real name : "+systemM.countWordsByUser("Alex"));
 
         //14. Use the name that you used on two users. Print the result.
         System.out.println("\n------------------------------- 14. Use the name that you used on two users. Print the result.------------------------------- \n");
-        System.out.println(" Number of words certain real name (repeated) : "+systemM.countWordsByUser("user"));
+        System.out.println(" Number of words certain real name (repeated) : "+systemM.countWordsByUser("Arnau"));
 
         //15. Print the messages received by users born before year 2000.
         System.out.println("\n------------------------------- 15. Print the messages received by users born before year 2000.------------------------------- \n");

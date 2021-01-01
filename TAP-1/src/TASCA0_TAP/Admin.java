@@ -154,7 +154,7 @@ public class Admin {
         } while (store < 0 || store > 1);
 
         if (store==1)
-            systemM = new MailSystem(StoreFile.getInstanceF());
+            systemM = new MailSystem(new StoreFile("Missatges.txt"));
         else
             systemM = new MailSystem(StoreMemory.getInstanceM());
     }

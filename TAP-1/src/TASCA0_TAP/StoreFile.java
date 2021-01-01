@@ -10,8 +10,6 @@ public class StoreFile implements MailStore {
 
 
   	private String nomFitxer;
-    private static StoreFile instance = null;
-
 
 
 	public StoreFile(String nom) {
